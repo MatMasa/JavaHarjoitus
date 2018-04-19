@@ -1,6 +1,4 @@
-import java.util.InputMismatchException; // Käyttäjän syöte   väärän tyyppinen
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 public class Main {
 	private static final Scanner lukija = new Scanner (System.in);
@@ -18,17 +16,19 @@ public class Main {
 	// Päävalikko, josta siirrytään muihin alavalikkoihin:
 	public static void mainMenu() {
 		java.util.Date date = new java.util.Date();
-		pl("\nPäävalikko:\n1. Laskin 2. Muuntaja 3. Kello 9. Tietoa ohjelmasta  0. Sulje ohjelma: ");
+		
 		try {
-			int valinta = intSyote();
+			int valinta = intSyote("\nPäävalikko:\n1. Laskin 2. Muuntaja 3. Kello \n9. Tietoa ohjelmasta  0. Sulje ohjelma: ");
+			
 			if (valinta==1)
-				mainMenu();
+				mainMenu(); // tähän tulee laskimen "laukaisin"
 			else if (valinta==2) {
 				muuntajaMenu();
 			}
 			
 			else if (valinta==3) {
 				System.out.println(date);
+				mainMenu();
 			}
 			
 			else if (valinta==9) 
@@ -36,10 +36,11 @@ public class Main {
 			
 				
 			else if (valinta==0)
-				p("Se o moro!");
+				lopetus();
 		
-		else
-			mainMenu();
+			else 
+				mainMenu();
+			
 		}
 		catch(Exception e) { // Geneerinen, kattaa kaikki virhetilanteet ja suoritetaan jos ylemmät virheviestit ei kattanut virhettä.
 			pl("Virheellinen syöte. Syötä pelkästään kokonaisluku!");
@@ -49,47 +50,33 @@ public class Main {
 		
 
 	}
-
-	// laskimen valikko, jonka kautta valitaan halutut rajoitukset, yms jotain:
-	/*public static void laskinMenu() {
-		
-		p("Lasetaanko: ");
-		try {
-			int valinta = intSyote();
-		}
-		catch (InputMismatchException ime) {
-			pl("Virheellinen syöte. Syötä pelkästään kokonaisluku!");
-			pl("Virhekoodi: "+ime);
-		}
-		catch (Exception e)  { 
-			pl("Tuntematon virhe");
-			pl("Virhekoodi: "+e); 
-			
-
-		}
-		
-	}*/
-		
-	
 	
 	//muuntajan valikko:
 	
 	public static double muuntajaMenu() {
-		double vastaus=0;
-		p("1. pituus 2. massa 3. Onnennumero ");
-		int valinta = lukija.nextInt();
+		double vastaus=0; int suunta=0,tyyppi;
+		int valinta = intSyote("1. pituus 2. massa  \n5. Takaisin päävalikkoon, 0. Sulje ohjelma: ");
 		if (valinta==1) {
-			p("1. Metri(m)<->jalka(f) 2. kilometrit<->mailit");
-			int tyyppi=lukija.nextInt();
+			tyyppi=intSyote("1. Metri(m)<->jalka(f) 2. kilometrit(km)<->mailit(mi)");
 			if (tyyppi==1) 
-				p("1. Metrit jaloiksi 2. jalat metreiksi");
+				suunta= intSyote("1. Metrit jaloiksi 2. jalat metreiksi");
 
 			else if (tyyppi==2) 
-				p("1. kilometrit maileiksi 2. mailit kilometreiksi: ");
+				suunta= intSyote("1. kilometrit maileiksi 2. mailit kilometreiksi: ");
 			
-			int suunta=intSyote();
-			vastaus = pituusLasku(tyyppi, suunta);
+			else if(tyyppi==0)
+				lopetus();
+			
+			
+			pituusLasku(tyyppi,suunta);
 		}
+		
+		else if(valinta==5) {
+			pl("Siirrytään päävalikkoon...");
+			mainMenu();
+		}
+			else if(valinta==0)
+				lopetus();
 			
 		return vastaus;
 	}
@@ -97,19 +84,49 @@ public class Main {
 	
 // Laskutomitukset: 
 	
-	public static double pituusLasku(int tyyppi, int suunta) {
-		double tulos=0;
-		double A= doubleSyote();
-		if(tyyppi==2) {
-			if(suunta==1) {
-				tulos= A * 0.62137;
+	public static void pituusLasku(int tyyppi, int suunta) {
+		double tulos=0; boolean jatketaanko=true;
+		
+		while (jatketaanko=true) {
+			double A= doubleSyote("Syötä muutettava: ");
+			if(tyyppi==1) {
+				if(suunta==1) {
+					pl("Metrit jaloiksi");
+					tulos=(A/0.3048);
+					System.out.print(A+" ");
+					pf("metriä on %.2f",tulos);
+					p(" Jalkaa\n");
+				}
+				
+				else if(suunta==2) {
+					pl("Jalat metreiksi ");
+					tulos=(A/3.2808);
+					pf("tulos on %.2f",tulos);
+					pl("\n");
+				}
+				
+				
+					
+					
 			}
-			else if (suunta==2) {
-				tulos= 1.609344*A;
+			
+			else if (tyyppi==2) {
+				if(suunta==1) {
+					pl("kilometrit maileiksi");
+					tulos= A * 0.62137;
+					pf("tulos on %.2f",tulos);
+				}
+				else if (suunta==2) {
+					pl("Mailit kilometreiksi");
+					tulos= 1.609344*A;
+					pf("tulos on %.2f",tulos);
+				}
 			}
+		jatketaanko();
 		}
+		
 
-		return tulos;
+		muuntajaMenu();
 	}
 	
 	public static void massaLasku(int tyyppi, int suunta) {
@@ -117,7 +134,17 @@ public class Main {
 		
 	}
 	public static boolean jatketaanko() {
-		return true;
+		int jatketaanko=intSyote("Haluatko muuntaa uudestaan? 1=K 2=EI 0= sulje ohjelma: ");
+		if (jatketaanko == 1 )
+			return true;
+		
+		else if(jatketaanko==0) {
+			lopetus();
+			return false;
+		}
+		
+		else
+			return false;
 	}
 	
 	
@@ -134,22 +161,27 @@ public class Main {
 		// kun käyttäjä käynnistää infomoduulin itse, näytetään vain tiedot ohjelmasta
 		else {
 
-			p("Cöpirait 2018, ool raits risöövd");
+			p("Tiimi-10 ohjelmaportaali  (V1.01b, (C) 2018) Tekijät: Jan Stockfelt, Matti Wallenius");
 			mainMenu();
 		}
 	}
-		
+	public static void lopetus() {
+		pl("Sammutetaan ohjelma...");
+		System.exit(0);
+	}
 	
 // Käyttäjän syötteen kysyminen
 	
 	// kokonaisluku:
-	public static int intSyote() {
+	public static int intSyote(String teksti) {
+		pl(teksti);
 		int v = lukija.nextInt();
 		return  v;
 	}
 	
 	// Desimaaliluku:	
-	public static double doubleSyote() {
+	public static double doubleSyote(String teksti) {
+		pl(teksti);
 		double v = lukija.nextDouble();
 		return  v;
 	}
