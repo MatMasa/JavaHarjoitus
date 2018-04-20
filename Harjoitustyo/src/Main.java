@@ -51,7 +51,7 @@ public class Main {
 
 	}
 	
-	//muuntajan valikko:
+	//muuntajan valikko: 
 	
 	public static double muuntajaMenu() {
 		double vastaus=0; int suunta=0,tyyppi;
@@ -85,48 +85,50 @@ public class Main {
 // Laskutomitukset: 
 	
 	public static void pituusLasku(int tyyppi, int suunta) {
-		double tulos=0; boolean jatketaanko=true;
+		double tulos=0;
 		
-		while (jatketaanko=true) {
+		do {
+
 			double A= doubleSyote("Syötä muutettava: ");
 			if(tyyppi==1) {
 				if(suunta==1) {
 					pl("Metrit jaloiksi");
 					tulos=(A/0.3048);
 					System.out.print(A+" ");
-					pf("metriä on %.2f",tulos);
+					pf("metriä on %.3f",tulos);
 					p(" Jalkaa\n");
+					jatketaanko();
 				}
 				
 				else if(suunta==2) {
 					pl("Jalat metreiksi ");
 					tulos=(A/3.2808);
-					pf("tulos on %.2f",tulos);
-					pl("\n");
+					pf("Jalkaa on %.3f",tulos);
+					pl(" metriä\n");
+					jatketaanko();
 				}
-				
-				
-					
-					
+							
 			}
 			
 			else if (tyyppi==2) {
 				if(suunta==1) {
 					pl("kilometrit maileiksi");
 					tulos= A * 0.62137;
-					pf("tulos on %.2f",tulos);
+					System.out.print(A);
+					pf(" Kilometriä on %.3f",tulos);
+					pl(" Mailia");
+					jatketaanko();
 				}
 				else if (suunta==2) {
 					pl("Mailit kilometreiksi");
 					tulos= 1.609344*A;
-					pf("tulos on %.2f",tulos);
+					pf("tulos on %.3f",tulos);
+					jatketaanko();
 				}
 			}
-		jatketaanko();
 		}
-		
-
-		muuntajaMenu();
+		while (jatketaanko());
+			muuntajaMenu();
 	}
 	
 	public static void massaLasku(int tyyppi, int suunta) {
@@ -153,7 +155,7 @@ public class Main {
 	public static void info(boolean o)  {
 		
 		if(o) {
-			pl("Tiimi-10 ohjelmaportaali  (V0.01b)\n");
+			pl("Tiimi-10 ohjelmaportaali  (V1.01b)\n");
 			pl("Navigointi onnistuu näppäilemällä haluttua ominaisuutta vastaavaa numeronäppäintä ja painamalla enter -näppäintä.");
 			pl("Ohjelman suorituksen pystyy keskeyttämään koska tahansa syöttämällä numero 0 ja painamalla enter näppäintä.");
 			
