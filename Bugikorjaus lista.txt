@@ -1,0 +1,24 @@
+1.
+Korjaa enter nappulaa painettaessa infinityyn jatkuva tulostus.
+
+2.
+Operaattoria ei voi vahitaa kesken laskennan,(eikä samaa operaattoria voi käyttää kahdesti 
+((tulee virheilmoitus)) esimerkiksi painamalla + ja tämän jälkeen - tulee virhe
+
+3.
+ korjaa 0:lla jakaminen
+ 
+4.
+Laskujen ketjuttaminen ei toimi
+
+5.
+Minimi ikkuna koko ja maximi ikkuna koko
+
+5.
+Backspace painikkeelle oma ikoni
+
+6.
+Enter funktio korjaus että ei voi painaa ilman valittua operaattoria +-/* jne.
+
+7.
+Virheenhallinta toimivaksi
