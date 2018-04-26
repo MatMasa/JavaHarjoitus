@@ -145,7 +145,7 @@ public class Main extends JFrame {
 	
 //Ohjelman valikot, joiden kautta k‰ytet‰‰n ominaisuuksia:	
 	
-	// P‰‰valikko, josta siirryt‰‰n muihin alavalikkoihin:
+	// mainMenu():P‰‰valikkomoduuli, josta siirryt‰‰n muihin alavalikkoihin, moduuleihin:
 	public static void mainMenu() {
 		java.util.Date date = new java.util.Date();
 		
@@ -161,16 +161,16 @@ public class Main extends JFrame {
 			}
 				
 			else if (valinta==2) {
-				muuntajaMenu();
+				muuntajaMenu();  // muuntajaValikko, josta valitaan mit‰ muunnetaan ja miten
 			}
 			
 			else if (valinta==3) {
-				System.out.println(date);
+				System.out.println(date); // tulostaa ajan muodossa viikonp‰iv‰ kuukausi p‰iv‰m‰‰r‰ kellonaika aikavyˆhyke vuosi
 				mainMenu();
 			}
 			
 			else if (valinta==9) 
-				info(false);
+				info(false); // K‰ynnist‰‰ infomoduulin -> n‰ytt‰‰ ohjelman tiedot
 			
 				
 			else if (valinta==0)
@@ -181,113 +181,153 @@ public class Main extends JFrame {
 			
 		}
 		catch(Exception e) { // Geneerinen, kattaa kaikki virhetilanteet ja suoritetaan jos ylemm‰t virheviestit ei kattanut virhett‰.
-			pl("Virheellinen syˆte. Syˆt‰ pelk‰st‰‰n kokonaisluku!");
-			pl("Virhekoodi: "+e);
+			
+			virheTulostus(e);   // Virheenhallintamoduuli: ilmoitus virheest‰, sen tulostus ja kirjaus lokitiedostoon
+			
 			
 		}
 		
 
 	}
 	
-	//muuntajan valikko: 
+	/* muuntajaMenu(): moduuli, jossa valitaan mit‰ tyyppi‰ muunnetaan(pituus, massa, ...), muutettava yksikkˆ(kilometrit, mailit) ja mihin suuntaan muutetaan(e. mailit kilometreiksi)
+	* int valinta: Kysyy k‰ytt‰j‰lt‰ mink‰ tyyppisi‰ arvoja muutetaan
+	* int tyyppi: Kysyy, mit‰ muutetaan valinta muuttujan m‰‰ritt‰m‰st‰ kategoriasta
+	* int suunta: Kysyy, mit‰ muutetaan ja miksi
+	*/
+	public static void muuntajaMenu() {
+		int suunta=0,tyyppi;
+		try {
+			int valinta = intSyote("1. pituus 2. massa  \n5. Takaisin p‰‰valikkoon, 0. Sulje ohjelma: ");
+			if (valinta==1) {
+				tyyppi=intSyote("1. Metri(m)<->jalka(f) 2. kilometri(km)<->maili(mi) 5. P‰‰valikkoon 0. Sulje ohjelma");
+				
+				if (tyyppi==1) {
+					suunta= intSyote("1. Metrit jaloiksi 2. jalat metreiksi 5. takaisin p‰‰valikkoon 0. Sulje ohjelma");
+					pituusLasku(tyyppi,suunta);
+					if (suunta==5)
+						mainMenu();
+					else if(suunta==0)
+						lopetus();
+					else
+						muuntajaMenu();
+				}
+					
+					
 	
-	public static double muuntajaMenu() {
-		double vastaus=0; int suunta=0,tyyppi;
-		int valinta = intSyote("1. pituus 2. massa  \n5. Takaisin p‰‰valikkoon, 0. Sulje ohjelma: ");
-		if (valinta==1) {
-			tyyppi=intSyote("1. Metri(m)<->jalka(f) 2. kilometrit(km)<->mailit(mi) 5. P‰‰valikkoon");
-			if (tyyppi==1) {
-				suunta= intSyote("1. Metrit jaloiksi 2. jalat metreiksi 5. takaisin p‰‰valikkoon 0. Lopetus");
-				if (suunta==5)
-					mainMenu();
-				else if(suunta==0)
+				else if (tyyppi==2) {
+					suunta= intSyote("1. kilometrit maileiksi 2. mailit kilometreiksi 5. P‰‰valikko 0. Lopetus: ");
+					if (suunta==5)
+						mainMenu();
+					else if(suunta==0)
+						lopetus();
+				}
+					
+				
+				
+				else if(tyyppi==0)
 					lopetus();
-			}
 				
-				
-
-			else if (tyyppi==2) {
-				suunta= intSyote("1. kilometrit maileiksi 2. mailit kilometreiksi 5. P‰‰valikko: ");
-				if (suunta==5)
+				else if(tyyppi==5)
 					mainMenu();
-				else if(suunta==0)
-					lopetus();
-			}
 				
+				
+				
+				
+				
+			}
 			
+			else if (valinta==2)
+				massaLasku();
 			
-			else if(tyyppi==0)
-				lopetus();
-			
-			else if(tyyppi==5)
+			else if(valinta==5) {
+				pl("Siirryt‰‰n p‰‰valikkoon...");
 				mainMenu();
+			}
+				else if(valinta==0)
+					lopetus();
+				
 			
-			
-			
-			
-			pituusLasku(tyyppi,suunta);
 		}
-		
-		else if(valinta==5) {
-			pl("Siirryt‰‰n p‰‰valikkoon...");
-			mainMenu();
-		}
-			else if(valinta==0)
-				lopetus();
+		catch(Exception e) {
+				virheTulostus(e);
+			}
+				
+	
+	}
+
+// virheTulostus(Exception e) virheenhallintamoduuli, joka hallitsee suurimman osan virheist‰
+	
+	public static void virheTulostus(Exception e) {
+		try {
+			pl("Virheellinen syˆte");
+			pl("Virhekoodi: "+e);
+			pl("Tulostetaan tiedostoon 'virheloki.txt'");
+			PrintWriter virhe = new PrintWriter("virheloki.txt");
+			virhe.println(e);
+			virhe.close();
+				
 			
-		return vastaus;
+	      }
+	      catch (Exception ie) {
+	         throw new RuntimeException("Virhelokia ei voitu kirjoittaa", ie);
+	      }
 	}
 	
-	
-// Laskutomitukset: 
+	// Laskutomitukset: 
 	
 	public static void pituusLasku(int tyyppi, int suunta) {
 		double tulos=0;
 		
 		do {
+			try {
 
-			double A= doubleSyote("Syˆt‰ muutettava: ");
-			if(tyyppi==1) {
-				if(suunta==1) {
-					pl("Metrit jaloiksi");
-					tulos=(A/0.3048);
-					System.out.print(A+" ");
-					pf("metri‰ on %.3f",tulos);
-					p(" Jalkaa\n");
-					jatketaanko();
+				double A= doubleSyote("Syˆt‰ muutettava: ");
+				if(tyyppi==1) {
+					if(suunta==1) {
+						pl("Metrit jaloiksi");
+						tulos=(A/0.3048);
+						System.out.print(A+" ");
+						pf("metri‰ on %.3f",tulos);
+						p(" Jalkaa\n");
+						jatketaanko();
+					}
+					
+					else if(suunta==2) {
+						pl("Jalat metreiksi ");
+						tulos=(A/3.2808);
+						pf("Jalkaa on %.3f",tulos);
+						pl(" metri‰\n");
+						jatketaanko();
+					}
+					
+					else if(suunta==5)
+						mainMenu();
+								
 				}
 				
-				else if(suunta==2) {
-					pl("Jalat metreiksi ");
-					tulos=(A/3.2808);
-					pf("Jalkaa on %.3f",tulos);
-					pl(" metri‰\n");
-					jatketaanko();
+				else if (tyyppi==2) {
+					if(suunta==1) {
+						pl("kilometrit maileiksi");
+						tulos= A * 0.62137;
+						System.out.print(A);
+						pf(" Kilometri‰ on %.3f",tulos);
+						pl(" Mailia");
+						jatketaanko();
+					}
+					else if (suunta==2) {
+						pl("Mailit kilometreiksi");
+						tulos= 1.609344*A;
+						pf("tulos on %.3f",tulos);
+						jatketaanko();
+					}
+					
+					else if(suunta==5)
+						mainMenu();
 				}
-				
-				else if(suunta==5)
-					mainMenu();
-							
 			}
-			
-			else if (tyyppi==2) {
-				if(suunta==1) {
-					pl("kilometrit maileiksi");
-					tulos= A * 0.62137;
-					System.out.print(A);
-					pf(" Kilometri‰ on %.3f",tulos);
-					pl(" Mailia");
-					jatketaanko();
-				}
-				else if (suunta==2) {
-					pl("Mailit kilometreiksi");
-					tulos= 1.609344*A;
-					pf("tulos on %.3f",tulos);
-					jatketaanko();
-				}
-				
-				else if(suunta==5)
-					mainMenu();
+			catch (Exception e) {
+				virheTulostus(e);
 			}
 			
 		}
@@ -295,8 +335,9 @@ public class Main extends JFrame {
 			muuntajaMenu();
 	}
 	
-	public static void massaLasku(int tyyppi, int suunta) {
-		double tulos;
+	public static void massaLasku() {
+		p("T‰h‰n tulisi massalaskujen menu, toimii samalla tavalla kuin pituuslaskun metodit");
+		mainMenu();
 		
 	}
 	public static boolean jatketaanko() {
@@ -327,7 +368,7 @@ public class Main extends JFrame {
 		// kun k‰ytt‰j‰ k‰ynnist‰‰ infomoduulin itse, n‰ytet‰‰n vain tiedot ohjelmasta
 		else {
 
-			p("Tiimi-10 ohjelmaportaali  (V1.01b, (C) 2018) Tekij‰t: Jan Stockfelt, Matti Wallenius");
+			p("Tiimi-10 ohjelmaportaali  (V2.1, (C) 2018) Tekij‰t: Jan Stockfelt, Matti Wallenius");
 			mainMenu();
 		}
 	}
@@ -368,6 +409,7 @@ public class Main extends JFrame {
 		System.out.printf(teksti, parametri);
 	}
 	
+
 
 	
 /** 
