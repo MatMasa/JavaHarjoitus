@@ -17,10 +17,10 @@ public class Main extends JFrame {
 	private double LaskentaNumero1 ;
 	private double LaskentaNumero2 ;
 	private JTextField kentta = new JTextField("");
-	public enum CalcFunction {
+	public enum LaskentaFunktio {
 		YHTEEN, VAHENNYS, KERTO, JAKO;
 	}
-	private CalcFunction Laskenta;
+	private LaskentaFunktio Laskenta;
 	
 	
 	public  Main() {
@@ -66,15 +66,15 @@ public class Main extends JFrame {
 				
 				}else if(NumeroNappiTeksti[i][j].equals("*")) {
 					
-					Nappulat.addActionListener(new LaskentaListener(CalcFunction.KERTO));
+					Nappulat.addActionListener(new LaskentaListener(LaskentaFunktio.KERTO));
 				
 				}else if (NumeroNappiTeksti[i][j].equals("-")) {
 					
-					Nappulat.addActionListener(new LaskentaListener(CalcFunction.VAHENNYS));
+					Nappulat.addActionListener(new LaskentaListener(LaskentaFunktio.VAHENNYS));
 				
 				}else if (NumeroNappiTeksti[i][j].equals("+")) {
 					
-					Nappulat.addActionListener(new LaskentaListener(CalcFunction.YHTEEN));
+					Nappulat.addActionListener(new LaskentaListener(LaskentaFunktio.YHTEEN));
 				
 				}else if (NumeroNappiTeksti[i][j].equals("=")) {
 					
@@ -82,7 +82,7 @@ public class Main extends JFrame {
 				
 				}else if (NumeroNappiTeksti[i][j].equals("\u00F7")) {
 					
-					Nappulat.addActionListener(new LaskentaListener(CalcFunction.JAKO));
+					Nappulat.addActionListener(new LaskentaListener(LaskentaFunktio.JAKO));
 				
 				} else {
 					Nappulat.addActionListener(new NumeroNappienToiminnot(Nappulat));
@@ -504,17 +504,17 @@ public class Main extends JFrame {
 			
 			
 			 
-			 	 if (Laskenta == CalcFunction.JAKO ) {
+			 	 if (Laskenta == LaskentaFunktio.JAKO ) {
 			 		 if(LaskentaNumero1 == 0 || LaskentaNumero2 == 0) {
 			 			 System.out.println("Jakajan tai jaettavan operaattori ei saa olla 0");
 			 		 } else {
 	                kentta.setText(Double.toString((Math.round((LaskentaNumero1 / LaskentaNumero2) * 100)) / 100));
 			 		 }
-	            } else if (Laskenta == CalcFunction.KERTO) {
+	            } else if (Laskenta == LaskentaFunktio.KERTO) {
 	                kentta.setText(Double.toString(LaskentaNumero1 * LaskentaNumero2));
-	            } else if (Laskenta == CalcFunction.YHTEEN) {
+	            } else if (Laskenta == LaskentaFunktio.YHTEEN) {
 	                kentta.setText(Double.toString(LaskentaNumero1 + LaskentaNumero2));
-	            } else if (Laskenta == CalcFunction.VAHENNYS) {
+	            } else if (Laskenta == LaskentaFunktio.VAHENNYS) {
 	                kentta.setText(Double.toString(LaskentaNumero1 - LaskentaNumero2));
 	            } else {
 	                kentta.setText(String.valueOf(LaskentaNumero1));
@@ -532,9 +532,9 @@ public class Main extends JFrame {
 
 		
 		
-		private final CalcFunction operation;
+		private final LaskentaFunktio operation;
 		
-		public LaskentaListener(CalcFunction Laskenta) {
+		public LaskentaListener(LaskentaFunktio Laskenta) {
 			this.operation = Laskenta;
 			
 			
