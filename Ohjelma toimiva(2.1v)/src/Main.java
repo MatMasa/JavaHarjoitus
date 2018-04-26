@@ -320,7 +320,7 @@ public class Main extends JFrame {
 	public static void info(boolean o)  {
 		
 		if(o) {
-			pl("Tiimi-10 ohjelmaportaali  (V1.1)\n");
+			pl("Tiimi-10 ohjelmaportaali  (V2.1)\n");
 			pl("Navigointi onnistuu näppäilemällä haluttua ominaisuutta vastaavaa numeronäppäintä ja painamalla enter -näppäintä.");
 			pl("Ohjelman suorituksen pystyy keskeyttämään koska tahansa syöttämällä numero 0 ja painamalla enter näppäintä.");
 			
