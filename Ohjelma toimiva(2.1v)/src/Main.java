@@ -25,7 +25,6 @@ public class Main extends JFrame {
 	
 	public  Main() {
 		
-		// ------ Numero N‰pp‰imet Alla
 		
 		JPanel NumeroNappiPaneeli = new JPanel(new GridLayout(4,4));
 		NumeroNappiPaneeli.setPreferredSize(new Dimension(100, 50));
@@ -116,12 +115,12 @@ public class Main extends JFrame {
 		
 			
 		
-		JPanel PaaPanel = new JPanel(new BorderLayout()); // -- P‰‰paneeli Joka m‰‰ritt‰‰ laskimen osien lopulliset paikat Graffisessa liittym‰ss‰ (kentta ja Numerot)
+		JPanel PaaPanel = new JPanel(new BorderLayout()); // -- P‰‰paneeli Joka m‰‰ritt‰‰ laskimen osien lopulliset paikat Graffisessa liittym‰ss‰.
 			PaaPanel.add(kentta, BorderLayout.PAGE_START);
 			PaaPanel.add(NumeroNappiPaneeli);
 			
 		
-		// ------- Alla on komennot jotka m‰‰ritt‰v‰t laskimen Alkuper‰isen ikkunan koon ja tuo muut vaadittavat toiminnot kuten laskimen nappulat
+		// ------- Alla on komennot jotka m‰‰ritt‰v‰t laskimen Alkuper‰isen ikkunan koon ja tuo muut vaadittavat toiminnot kuten laskimen nappulat.
 		add(PaaPanel);	
 		setTitle("Laskin");
 		setSize(315,350);
