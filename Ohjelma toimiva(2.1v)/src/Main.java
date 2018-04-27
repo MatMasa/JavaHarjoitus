@@ -210,8 +210,13 @@ public class Main extends JFrame {
 						mainMenu();
 					else if(suunta==0)
 						lopetus();
-					else
+					
+					else {
+						pl("Virheellinen numero!");
 						muuntajaMenu();
+					}
+					
+					
 					
 					pituusLasku(tyyppi,suunta);
 				}
@@ -226,7 +231,13 @@ public class Main extends JFrame {
 					else if(suunta==0)
 						lopetus();
 					
-					pituusLasku(tyyppi, suunta);
+					else if (suunta==1| suunta==2)
+						pituusLasku(tyyppi, suunta);
+					
+					else {
+						p("Virheellinen numero!");
+						muuntajaMenu();
+					}
 				}
 					
 				
@@ -235,6 +246,11 @@ public class Main extends JFrame {
 				
 				else if(tyyppi==5)
 					mainMenu();
+				else {
+					p("Virheellinen numero!");
+					muuntajaMenu();
+				}
+					
 				
 			}
 			
@@ -247,6 +263,9 @@ public class Main extends JFrame {
 			}
 				else if(valinta==0)
 					lopetus();
+			
+				else
+					muuntajaMenu();
 				
 			
 		}
@@ -333,6 +352,8 @@ public class Main extends JFrame {
 					else if(suunta== 0)
 						lopetus();
 				}
+				else
+					pituusLasku(tyyppi,suunta);
 			}
 			catch (Exception e) {
 				virheTulostus(e);
