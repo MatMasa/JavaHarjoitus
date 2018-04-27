@@ -132,7 +132,10 @@ public class Main extends JFrame {
 	
 }
 	
-	
+	/** main(String[] args) Käytetään ainoastaan käyttöohjeiden ja päävalikon aukaisuun
+	 * 
+	 * @param args ei mitään
+	 */
 	
 	public static void main(String[] args) {
 
@@ -146,7 +149,9 @@ public class Main extends JFrame {
 	
 //Ohjelman valikot, joiden kautta käytetään ominaisuuksia:	
 	
-	// mainMenu():Päävalikkomoduuli, josta siirrytään muihin alavalikkoihin, moduuleihin:
+	/** mainMenu():Päävalikkomoduuli, josta siirrytään muihin alavalikkoihin, moduuleihin
+	 * 
+	 */
 	public static void mainMenu() {
 		java.util.Date date = new java.util.Date();
 		
@@ -276,7 +281,10 @@ public class Main extends JFrame {
 	
 	}
 
-// virheTulostus(Exception e) virheenhallintamoduuli, joka hallitsee suurimman osan virheistä
+/** virheTulostus(Exception e) virheenhallintamoduuli, joka hallitsee suurimman osan virheistä
+ * 
+ * @param e Parametri suurimmalle osalle virheilmoituksia
+ */
 	
 	public static void virheTulostus(Exception e) {
 		try {
@@ -296,9 +304,10 @@ public class Main extends JFrame {
 	
 	// Laskutomitukset: 
 	
-	/**
-	 * pituusLasku(int tyyppi, int suunta): Ottaa vastaan muuntajaMenu muuntoparametrit
-	 * ja laskee pituusmuunnokset.
+	/** pituusLasku(int tyyppi, int suunta)
+	 *  Pituuslaskujen laskukaavat ja laskuprosessi 
+	 * @param tyyppi Mitä tyyppiä muutetetaan( Esim. kilometrejä ja maileja)
+	 * @param suunta Mihin suuntaan muutetaan (esim maileja kilometreiksi tai kilometreja maileiksi
 	 */
 	public static void pituusLasku(int tyyppi, int suunta) {
 		double tulos=0;
@@ -364,13 +373,18 @@ public class Main extends JFrame {
 			muuntajaMenu();
 	}
 	
-	 // massaLasku(): Toimii samalla periaatteella kuin pituusLasku moduuli, "Ominaisuus julkaistaan versiossa v3" 
+	 /** massaLasku(): Toimii samalla periaatteella kuin pituusLasku moduuli, "Ominaisuus julkaistaan versiossa v3" 
+	  * 
+	  */
 	public static void massaLasku() {
 		p("Tähän tulisi massalaskujen menu, toimii samalla tavalla kuin pituuslaskun metodit");
 		mainMenu();
 		
 	}
-	//jatketaanko() : Kysyy käyttäjältä haluaako hän muuntaa uudestaan, palata valikkoon vai lopettaa. buginen, ilmestyy kaksi kertaa näytölle, vasta toisella kertaa hyväksyy vastauksen.
+	/**jatketaanko() : Kysyy käyttäjältä haluaako hän muuntaa uudestaan, palata valikkoon vai lopettaa. buginen, ilmestyy kaksi kertaa näytölle, vasta toisella kertaa hyväksyy vastauksen.
+	 * 
+	 * @return palauttaa True: jatketaan  laskemista samoilla muutettavilla False: Palataan muuntajavalikkoon
+	 */
 	public static boolean jatketaanko() {
 		int jatketaanko=intSyote("Haluatko muuntaa uudestaan? 1=K 2=EI 0= sulje ohjelma: ");
 		if (jatketaanko == 1 )
@@ -387,10 +401,9 @@ public class Main extends JFrame {
 	
 	
 	
-/*
- * Ohjemoduuli. näyttää ohjelman käynnistyessä käyttöohjeet:
- * True: Ohjelman käynnistyessä näyttää käyttöohjeet
- * false: Kun käyttäjä avaa itse infosivu, näyttää tietoja ohjelmasta
+/** info(boolean o)
+ *  Ohjelman käyttöohjeet ja tiedot ohjelmasta
+ * @param o Ohjelman käynnistyessä true, eli näyttää käyttöhjeet, muuten tiedot ohjelmasta
  */
 	
 	
@@ -409,7 +422,9 @@ public class Main extends JFrame {
 			mainMenu();
 		}
 	}
-	// lopetus(): lopetusmoduuli, joka ilmoittaa käyttäjälle ohjelman sammuttamisesta, ja lopettaa sen suorittamisen
+	/** lopetus(): lopetusmoduuli, joka ilmoittaa käyttäjälle ohjelman sammuttamisesta, ja lopettaa sen suorittamisen
+	 * 
+	 */
 	
 	 
 	public static void lopetus() {
@@ -417,7 +432,11 @@ public class Main extends JFrame {
 		System.exit(0);
 	}
 	
-	//intSyote(String teksti): pyytää käyttäjältä kokonaisluvun
+	/**intSyote(String teksti): pyytää käyttäjältä kokonaisluvun
+	 * 
+	 * @param teksti mahdollistaa tekstin lisäämisen komennon sisälle
+	 * @return palauttaa käyttäjän syöttämän kokonaisluvun
+	 */
 	
 	public static int intSyote(String teksti) {
 		pl(teksti);
@@ -425,7 +444,11 @@ public class Main extends JFrame {
 		return  v;
 	}
 	
-	// doubleSyote(String teksti) pyytää käyttäjältä desimaaliluvun
+	/** doubleSyote(String teksti) pyytää käyttäjältä desimaaliluvun
+	 * 
+	 * @param teksti mahdollistaa tekstin lisäämisen komennon sisälle
+	 * @return  palauttaa käyttäjän syöttämän desimaaliluvun
+	 */
 	
 	public static double doubleSyote(String teksti) {
 		pl(teksti);
@@ -436,17 +459,27 @@ public class Main extends JFrame {
 	
 // Tekstikomentojen lyhennykset:
 	
-	//p(string teksti): Lyhennys tekstin tulostamisesta samalle riville
+	/** p(string teksti): Lyhennys tekstin tulostamisesta samalle riville
+	 * 
+	 * @param teksti Teksti syötetään moduulin kutsussa
+	 */
 	
 	public static void p(String teksti) {
 		System.out.print(teksti);
 	}
-	//pl(string teksti): Lyhennys tekstin tulostamisesta eri riville
+	/** pl(string teksti): Lyhennys tekstin tulostamisesta eri riville
+	 * 
+	 * @param teksti  Teksti syötetään moduulin kutsussa
+	 */
 	
 	public static void pl(String teksti) {
 		System.out.println(teksti);
 	}
-	//pf(string teksti, double parametri): Lyhennys desimaalilukujen tulostamiseen
+	/** pf(string teksti, double parametri): Lyhennys desimaalilukujen tulostamiseen
+	 * 
+	 * @param teksti ehdot jolla tulostetta muokataan(montako desimaalia luvussa)
+	 * @param parametri Haluttu desimaaliluku, joka esitetään pyöristettynä
+	 */
 	
 	public static void pf(String teksti, double parametri) {
 		System.out.printf(teksti, parametri);
