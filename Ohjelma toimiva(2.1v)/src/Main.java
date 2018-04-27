@@ -216,14 +216,14 @@ public class Main extends JFrame {
 					else if(suunta==0)
 						lopetus();
 					
+					else if(suunta==1| suunta==2)
+						pituusLasku(tyyppi,suunta);
 					else {
 						pl("Virheellinen numero!");
 						muuntajaMenu();
 					}
 					
-					
-					
-					pituusLasku(tyyppi,suunta);
+								
 				}
 					
 					
