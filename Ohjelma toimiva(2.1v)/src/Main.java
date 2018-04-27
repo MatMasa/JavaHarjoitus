@@ -205,33 +205,36 @@ public class Main extends JFrame {
 				
 				if (tyyppi==1) {
 					suunta= intSyote("1. Metrit jaloiksi 2. jalat metreiksi 5. takaisin p‰‰valikkoon 0. Sulje ohjelma");
-					pituusLasku(tyyppi,suunta);
+					
 					if (suunta==5)
 						mainMenu();
 					else if(suunta==0)
 						lopetus();
 					else
 						muuntajaMenu();
+					
+					pituusLasku(tyyppi,suunta);
 				}
 					
 					
 	
 				else if (tyyppi==2) {
 					suunta= intSyote("1. kilometrit maileiksi 2. mailit kilometreiksi 5. P‰‰valikko 0. Lopetus: ");
+					
 					if (suunta==5)
 						mainMenu();
 					else if(suunta==0)
 						lopetus();
+					
+					pituusLasku(tyyppi, suunta);
 				}
 					
-				
 				
 				else if(tyyppi==0)
 					lopetus();
 				
 				else if(tyyppi==5)
 					mainMenu();
-				
 				
 			}
 			
@@ -326,6 +329,9 @@ public class Main extends JFrame {
 					
 					else if(suunta==5)
 						mainMenu();
+					
+					else if(suunta== 0)
+						lopetus();
 				}
 			}
 			catch (Exception e) {
@@ -370,7 +376,7 @@ public class Main extends JFrame {
 	public static void info(boolean o)  {
 		
 		if(o) {
-			pl("Tiimi-10 ohjelmaportaali  (V2.1)\n");
+			pl("Tiimi-10 ohjelmaportaali  (V2.15)\n");
 			pl("Navigointi onnistuu n‰pp‰ilem‰ll‰ haluttua ominaisuutta vastaavaa numeron‰pp‰int‰ ja painamalla enter -n‰pp‰int‰.");
 			pl("Ohjelman suorituksen pystyy keskeytt‰m‰‰n koska tahansa syˆtt‰m‰ll‰ numero 0 ja painamalla enter n‰pp‰int‰.");
 			
@@ -378,7 +384,7 @@ public class Main extends JFrame {
 		// kun k‰ytt‰j‰ k‰ynnist‰‰ infomoduulin itse, n‰ytet‰‰n vain tiedot ohjelmasta
 		else {
 
-			p("Tiimi-10 ohjelmaportaali  (V2.1, (C) 2018) Tekij‰t: Jan Stockfelt, Matti Wallenius");
+			p("Tiimi-10 ohjelmaportaali  (V2.15, (C) 2018) Tekij‰t: Jan Stockfelt, Matti Wallenius");
 			mainMenu();
 		}
 	}
