@@ -1,5 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 import javax.swing.*;
@@ -190,7 +191,7 @@ public class Main extends JFrame {
 
 	}
 	
-	/* muuntajaMenu(): moduuli, jossa valitaan mitä tyyppiä muunnetaan(pituus, massa, ...), muutettava yksikkö(kilometrit, mailit) ja mihin suuntaan muutetaan(e. mailit kilometreiksi)
+	/** muuntajaMenu(): moduuli, jossa valitaan mitä tyyppiä muunnetaan(pituus, massa, ...), muutettava yksikkö(kilometrit, mailit) ja mihin suuntaan muutetaan(e. mailit kilometreiksi)
 	* int valinta: Kysyy käyttäjältä minkä tyyppisiä arvoja muutetaan
 	* int tyyppi: Kysyy, mitä muutetaan valinta muuttujan määrittämästä kategoriasta
 	* int suunta: Kysyy, mitä muutetaan ja miksi
@@ -230,9 +231,6 @@ public class Main extends JFrame {
 				
 				else if(tyyppi==5)
 					mainMenu();
-				
-				
-				
 				
 				
 			}
@@ -276,6 +274,10 @@ public class Main extends JFrame {
 	
 	// Laskutomitukset: 
 	
+	/**
+	 * pituusLasku(int tyyppi, int suunta): Ottaa vastaan muuntajaMenu muuntoparametrit
+	 * ja laskee pituusmuunnokset.
+	 */
 	public static void pituusLasku(int tyyppi, int suunta) {
 		double tulos=0;
 		
@@ -335,11 +337,13 @@ public class Main extends JFrame {
 			muuntajaMenu();
 	}
 	
+	 // massaLasku(): Toimii samalla periaatteella kuin pituusLasku moduuli, "Ominaisuus julkaistaan versiossa v3" 
 	public static void massaLasku() {
 		p("Tähän tulisi massalaskujen menu, toimii samalla tavalla kuin pituuslaskun metodit");
 		mainMenu();
 		
 	}
+	//jatketaanko() : Kysyy käyttäjältä haluaako hän muuntaa uudestaan, palata valikkoon vai lopettaa. buginen, ilmestyy kaksi kertaa näytölle, vasta toisella kertaa hyväksyy vastauksen.
 	public static boolean jatketaanko() {
 		int jatketaanko=intSyote("Haluatko muuntaa uudestaan? 1=K 2=EI 0= sulje ohjelma: ");
 		if (jatketaanko == 1 )
@@ -356,7 +360,13 @@ public class Main extends JFrame {
 	
 	
 	
-//Ohjemoduuli. näyttää ohjelman käynnistyessä käyttöohjeet:
+/*
+ * Ohjemoduuli. näyttää ohjelman käynnistyessä käyttöohjeet:
+ * True: Ohjelman käynnistyessä näyttää käyttöohjeet
+ * false: Kun käyttäjä avaa itse infosivu, näyttää tietoja ohjelmasta
+ */
+	
+	
 	public static void info(boolean o)  {
 		
 		if(o) {
@@ -372,21 +382,24 @@ public class Main extends JFrame {
 			mainMenu();
 		}
 	}
+	// lopetus(): lopetusmoduuli, joka ilmoittaa käyttäjälle ohjelman sammuttamisesta, ja lopettaa sen suorittamisen
+	
+	 
 	public static void lopetus() {
 		pl("Sammutetaan ohjelma...");
 		System.exit(0);
 	}
 	
-// Käyttäjän syötteen kysyminen
+	//intSyote(String teksti): pyytää käyttäjältä kokonaisluvun
 	
-	// kokonaisluku:
 	public static int intSyote(String teksti) {
 		pl(teksti);
 		int v = lukija.nextInt();
 		return  v;
 	}
 	
-	// Desimaaliluku:	
+	// doubleSyote(String teksti) pyytää käyttäjältä desimaaliluvun
+	
 	public static double doubleSyote(String teksti) {
 		pl(teksti);
 		double v = lukija.nextDouble();
@@ -394,17 +407,20 @@ public class Main extends JFrame {
 	}
 
 	
-// Tekstikomentojen lyhennykset
+// Tekstikomentojen lyhennykset:
 	
-	//teksti samalle riville:
+	//p(string teksti): Lyhennys tekstin tulostamisesta samalle riville
+	
 	public static void p(String teksti) {
 		System.out.print(teksti);
 	}
-	//teksti eri riveille:
+	//pl(string teksti): Lyhennys tekstin tulostamisesta eri riville
+	
 	public static void pl(String teksti) {
 		System.out.println(teksti);
 	}
-	// Desimaalilukujen tulostus:
+	//pf(string teksti, double parametri): Lyhennys desimaalilukujen tulostamiseen
+	
 	public static void pf(String teksti, double parametri) {
 		System.out.printf(teksti, parametri);
 	}
